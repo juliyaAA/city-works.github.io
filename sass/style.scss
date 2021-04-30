@@ -122,9 +122,7 @@ body {
                     font-weight: 400;
                     font-size: 22px;
                     line-height: 26px;
-                    .seconds::before {
-                        content: " : ";
-                    }
+                    width: 75px;
                 }
             }
         }

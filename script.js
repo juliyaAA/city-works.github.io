@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', function () {
        
         let timer = setInterval(function() {
             minutes.innerHTML = minutes_data;
-            seconds.innerHTML = seconds_data-- ;
+            seconds.innerHTML = ' : ' + seconds_data-- ;
        
             if(seconds_data < 10) { 
                 seconds.innerHTML = '<span>0</span>' + seconds_data;
