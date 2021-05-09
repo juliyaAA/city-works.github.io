@@ -1,33 +1,53 @@
-const gulp        = require('gulp');
-const browserSync = require('browser-sync');
-const sass        = require('gulp-sass');
-const cleanCSS = require('gulp-clean-css');
-const autoprefixer = require('gulp-autoprefixer');
-const rename = require("gulp-rename");
+const gulp = require('gulp'),
+    browserSync = require('browser-sync'),
+    sass = require('gulp-sass'),
+    rename = require("gulp-rename"),
+    cleanCSS = require('gulp-clean-css'),
+    autoprefixer = require('gulp-autoprefixer'),
+    concat = require('gulp-concat'),
+    cssMin = require('gulp-cssmin');
 
-gulp.task('server', function() {
-
-    browserSync({
+gulp.task('server', function () {
+    browserSync.init({
         server: {
             baseDir: "./"
         }
-    });
-
-    gulp.watch("./*.html").on('change', browserSync.reload);
+    })
 });
 
-gulp.task('styles', function() {
-    return gulp.src("./sass/**/*.+(scss|sass)")
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(rename({suffix: '.min', prefix: ''}))
-        .pipe(autoprefixer())
-        .pipe(cleanCSS({compatibility: 'ie8'}))
+gulp.task('scss', function () {
+    return gulp.src("./scss/style.scss")
+        .pipe(sass({ outputStyle: 'compressed' }))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 8 versions']
+        }))
+        .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(gulp.dest("./css"))
-        .pipe(browserSync.stream());
+        .pipe(browserSync.stream())
 });
 
-gulp.task('watch', function() {
-    gulp.watch("./sass/**/*.+(scss|sass)", gulp.parallel('styles'));
-})
+gulp.task('html', function() {
+    return gulp.src('./*.html')
+        .pipe(browserSync.reload({ stream: true }))
+});
 
-gulp.task('default', gulp.parallel('watch', 'server', 'styles'));
+gulp.task('style', function () {
+    return gulp.src(['node_modules/normalize.css/normalize.css'])
+        .pipe(concat('libs.min.css'))
+        .pipe(cssMin())
+        .pipe(gulp.dest('./css'))
+});
+
+gulp.task('js', function () {
+    return gulp.src('./*.js')
+        .pipe(browserSync.reload({ stream: true }))
+});
+
+gulp.task('watch', function () {
+    gulp.watch("./scss/**/*.+(scss|sass)", gulp.parallel('scss'));
+    gulp.watch('./*.html', gulp.parallel('html'))
+    gulp.watch('./*.js', gulp.parallel('js'))
+});
+
+gulp.task('default', gulp.parallel('style', 'server', 'scss', 'watch'));

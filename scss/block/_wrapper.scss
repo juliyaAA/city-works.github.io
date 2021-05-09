@@ -38,37 +38,33 @@
     &__txt {
         font-weight: 700;
         font-size: 90px;
-        line-height: 108px;
         color: #35373b;
+        margin: 0;
+        margin-top: 30px;
         @media screen and (max-width: 1100px) {
             font-size: 70px;
         }
         @media screen and (max-width: 950px) {
             font-size: 55px;
-            line-height: 85px;
         }
     }
     &__box {
         margin-top: 24px;
         font-weight: 700;
         font-size: 32px;
-        line-height: 38px;
         color: #35373b;
         @media screen and (max-width: 1100px) {
             margin-top: 10px;
             font-size: 25px;
-            line-height: 20px;
         }
         @media screen and (max-width: 950px) {
             font-size: 20px;
-            line-height: 10px;
         }
     }
     &__inner {
         margin-top: 25px;
         font-weight: 400;
         font-size: 22px;
-        line-height: 29px;
         color: #35373b;
         .span-underlined {
             border-bottom: 1px solid #35373b;
@@ -76,11 +72,9 @@
         @media screen and (max-width: 1100px) {
             margin-top: 19px;
             font-size: 18px;
-            line-height: 29px;
         }
         @media screen and (max-width: 950px) {
             font-size: 16px;
-            line-height: 22px;
         }
     }
     &__text {
@@ -110,7 +104,6 @@
             border-radius: 6px;
             font-weight: 700;
             font-size: 15px;
-            line-height: 23px;
             color: #ffffff;
             border: none;
             cursor: pointer;
@@ -135,7 +128,6 @@
         color: #4073ff;
         font-weight: 400;
         font-size: 22px;
-        line-height: 26px;
         width: 75px;
     }
 }
